@@ -1,15 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import timelines from '../features/timelines/timelineSlice'
+import pages from '../features/pages/pagesSlice'
 import { logger } from 'redux-logger'
+// import thunk from 'redux-thunk'
 import {persistenceMiddleware} from "./persistent";
 
 export const store = configureStore({
-    reducer: {
-        timelines
-    },
+    reducer: {timelines, pages,},
     // preloadedState: getInitialData() ?? undefined,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()
         .concat(logger)
+        // .concat(thunk)
         .concat(persistenceMiddleware)
     ,
 });

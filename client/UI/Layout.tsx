@@ -4,15 +4,14 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import {AccountCircle} from "@mui/icons-material";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar/AppBar";
 
 export interface LayoutProps {
-    onTimelinesClick: () => void
+    title: React.JSX.Element
 }
 
-export default function Layout({children, onTimelinesClick}: React.PropsWithChildren<LayoutProps>)
+export default function Layout({children, title}: React.PropsWithChildren<LayoutProps>)
 {
     return <>
         <AppBar>
@@ -26,9 +25,7 @@ export default function Layout({children, onTimelinesClick}: React.PropsWithChil
                 >
                     <AccountCircle/>
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{flexGrow: 1}} onClick={onTimelinesClick}>
-                    Timeline
-                </Typography>
+                {title}
                 <Button color="inherit">Sync (todo)</Button>
             </Toolbar>
         </AppBar>

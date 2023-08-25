@@ -7,15 +7,40 @@ interface TimelinesState {
     timelines: Record<string, Timeline>
     timelinesOrder: Array<string>
 }
+
+export type TimelineItemsPosition = 'alternate-reverse' | 'alternate' | 'left' | 'right';
+export const timelineItemsPositions: Array<TimelineItemsPosition> = [
+    'alternate-reverse', 'alternate',
+    'left', 'right'
+]
+
+type DateTimeFormats = {
+    date: Intl.DateTimeFormatOptions
+    time: Intl.DateTimeFormatOptions
+    dateTime: Intl.DateTimeFormatOptions
+    year: Intl.DateTimeFormatOptions
+    day: Intl.DateTimeFormatOptions
+};
+export const dateTimeFormats: DateTimeFormats = {
+    date: DateTime.DATE_SHORT,
+    time: DateTime.TIME_24_SIMPLE,
+    dateTime: DateTime.DATETIME_SHORT,
+    year: {year: 'numeric'},
+    day: {weekday: 'long'},
+
+};
+
+export type DateTimeFormat = keyof DateTimeFormats;
+
 interface Timeline {
     name: string
-    position: 'alternate-reverse' | 'alternate' | 'left' | 'right',
-    items: Record<string, TimelineItem>
-    dateTimeFormat: Intl.DateTimeFormatOptions,
+    itemPosition: TimelineItemsPosition,
+    dateTimeFormat: DateTimeFormat,
+    items: Record<string, TimelineItemType>
     order: Array<string>
 }
 
-interface TimelineItem {
+export interface TimelineItemType {
     icon?: IconsEnum,
     time?: number, // timestamp
     title: string
@@ -30,8 +55,8 @@ const initialState: TimelinesState = {
     timelines: {
         'example': {
             name: 'Example',
-            dateTimeFormat: DateTime.DATETIME_SHORT,
-            position: 'alternate',
+            dateTimeFormat: 'dateTime',
+            itemPosition: 'alternate',
             items: {
                 'plain': {title: 'Plain', variant: 'filled', color: "grey"},
                 'color': {title: 'Colored', variant: 'filled', color: "primary"},
@@ -49,17 +74,34 @@ export const timelinesSlice = createSlice({
     name: 'timelines',
     initialState: initialState,
     reducers: {
-        addTimeline: (state, action: PayloadAction<string>) => {
-            const identifier = DateTime.now().toMillis().toString();
-            state.timelinesOrder.push(identifier);
-            state.timelines = {...state.timelines, [identifier]: {
-                    name: action.payload,
-                    position: 'right',
-                    dateTimeFormat: DateTime.DATETIME_SHORT,
-                    items: {},
-                    order: []
-                }
-            };
+        addTimeline : {
+            reducer: (state, action: PayloadAction<Timeline>) => {
+                const identifier = DateTime.now().toMillis().toString();
+                state.timelinesOrder.push(identifier);
+                state.timelines = {...state.timelines, [identifier]: action.payload};
+            },
+            prepare: (
+                name: string,
+                itemPosition: TimelineItemsPosition,
+                dateTimeFormat: DateTimeFormat
+            ): { payload: Timeline } => {
+                const identifier = DateTime.now().toMillis().toString();
+                return {
+                    payload: {
+                        name,
+                        itemPosition,
+                        dateTimeFormat,
+                        items: {
+                            [identifier]: {
+                                title: 'First',
+                                variant: 'filled',
+                                color: 'grey'
+                            }
+                        },
+                        order: [identifier],
+                    }
+                };
+            }
         },
         removeTimeline: (state, action: PayloadAction<string>) =>
         {
