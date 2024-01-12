@@ -18,6 +18,9 @@ const defaultTheme = createTheme(
         }
     }
 ); // todo
+
+
+// todo categories?
 export default function App(): React.JSX.Element
 {
     const dispatch = useAppDispatch();

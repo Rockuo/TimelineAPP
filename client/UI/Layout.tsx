@@ -26,7 +26,10 @@ export default function Layout({children, title}: React.PropsWithChildren<Layout
                     <AccountCircle/>
                 </IconButton>
                 {title}
-                <Button color="inherit">Sync (todo)</Button>
+                {/*<Button color="inherit">Sync (todo)</Button>*/}
+                {/*<Button color="inherit">Sync (todo)</Button>*/}
+                <Button color="inherit">Recover</Button>
+                <Button color="inherit">Backup</Button>
             </Toolbar>
         </AppBar>
         <Box

@@ -1,6 +1,6 @@
 
 import MuiTimelineItem from '@mui/lab/TimelineItem/TimelineItem';
-import {DateTimeFormat, dateTimeFormats, TimelineItemType} from "../timelineSlice";
+import {DateTimeFormat, dateTimeFormats, TimelineItemType} from "../timelineDefinitions";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent/TimelineOppositeContent";
 import {DateTime} from "luxon";
 import TimelineSeparator from "@mui/lab/TimelineSeparator/TimelineSeparator";
@@ -42,7 +42,7 @@ export default function TimelineItem(
                 variant="body2"
                 color="text.secondary"
             >
-                {DateTime.fromMillis(Number(time)).toLocaleString(dateTimeFormats[dateTimeFormat])}
+                {DateTime.fromSeconds(time).toLocaleString(dateTimeFormats[dateTimeFormat])}
             </TimelineOppositeContent>
         }
         <TimelineSeparator>

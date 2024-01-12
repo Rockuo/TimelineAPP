@@ -5,14 +5,19 @@ import AboveIcon from "@mui/icons-material/KeyboardArrowUp";
 import ListItemText from "@mui/material/ListItemText";
 import EditIcon from "@mui/icons-material/Edit";
 import BellowIcon from "@mui/icons-material/KeyboardArrowDown";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Clear";
 import Menu from "@mui/material/Menu";
+import Divider from '@mui/material/Divider';
 
-export default function TimelineMenu({anchor, onClose, onAddAbove, onAddBellow, onEdit}: {
+export default function TimelineMenu({anchor, onClose, onAdd, onDelete, onEdit, onMoveUp, onMoveDown}: {
     anchor?: HTMLElement,
     onClose: () => void,
-    onAddAbove: () => void,
-    onAddBellow: () => void,
+    onAdd: () => void,
     onEdit: () => void,
+    onDelete: () => void,
+    onMoveUp?: () => void,
+    onMoveDown?: () => void,
 })
 {
     return <Menu
@@ -32,25 +37,43 @@ export default function TimelineMenu({anchor, onClose, onAddAbove, onAddBellow, 
             'aria-labelledby': 'basic-button',
         }}
     >
-        <MenuItem onClick={onAddAbove}>
+        {
+            onMoveUp &&
+                <MenuItem onClick={onMoveUp}>
+                    <ListItemIcon>
+                        <AboveIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Move up</ListItemText>
+                </MenuItem>
+        }
+        {onMoveUp && <Divider/>}
+        <MenuItem onClick={onAdd}>
             <ListItemIcon>
-                <AboveIcon fontSize="small" />
+                <AddIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Add Above</ListItemText>
+            <ListItemText>Add Bellow</ListItemText>
         </MenuItem>
-        {/*<Divider />*/}
         <MenuItem onClick={onEdit}>
             <ListItemIcon>
                 <EditIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText>Edit</ListItemText>
         </MenuItem>
-        {/*<Divider />*/}
-        <MenuItem onClick={onAddBellow}>
+        <MenuItem onClick={onDelete}>
             <ListItemIcon>
-                <BellowIcon fontSize="small" />
+                <DeleteIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Add Bellow</ListItemText>
+            <ListItemText>Delete</ListItemText>
         </MenuItem>
+
+        {onMoveDown && <Divider/>}
+        {
+            onMoveDown && <MenuItem onClick={onMoveDown}>
+                <ListItemIcon>
+                    <BellowIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Move Down</ListItemText>
+            </MenuItem>
+        }
     </Menu>
 }

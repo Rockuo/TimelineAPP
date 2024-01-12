@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {useAppDispatch, useAppSelector} from '../../../app/hooks';
-import {setCurrentTimeline} from '../timelineSlice';
+import {setCurrentTimeline} from '../timelinesSlice';
 import Box from "@mui/material/Box";
 import AddTimeline from "./AddTimeline";
 import Paper from '@mui/material/Paper';
@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 const Item = ({name, onClick}: {name: string, onClick: () => void}) =>
     <Paper
         elevation={2}
-        sx={{my: 1,p: 2, cursor: 'pointer', minWidth:'30%'}}
+        sx={{my: 1,p: 2, cursor: 'pointer', minWidth:'30%', }}
         onClick={onClick}
     >
         <Typography noWrap align="center">{name}</Typography>
@@ -27,6 +27,7 @@ export default function TimelinesList()
 
     return <Box>
         <Grid container direction={{xs: "column", md: "row"}} sx={{columnGap: 1}}>
+            {/*todo dNd*/}
             {identifiers.map(
                 (identifier) => <Item
                     key={identifier}

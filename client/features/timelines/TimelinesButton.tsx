@@ -1,7 +1,7 @@
 import {useAppDispatch} from "../../app/hooks";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import {setCurrentTimeline} from "./timelineSlice";
+import {setCurrentTimeline} from "./timelinesSlice";
 
 export default function TimelinesButton({onClick}: {onClick: () => void})
 {

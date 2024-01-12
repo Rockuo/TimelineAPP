@@ -10,16 +10,16 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import {
-    addTimeline,
     DateTimeFormat,
     dateTimeFormats,
     TimelineItemsPosition,
     timelineItemsPositions
-} from "../timelineSlice";
+} from "../timelineDefinitions";
 import InputLabel from "@mui/material/InputLabel";
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import {useAppDispatch} from "../../../app/hooks";
+import {addTimeline} from "../timelinesSlice";
 
 export default function AddTimeline() {
 

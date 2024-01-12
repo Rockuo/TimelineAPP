@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import timelines from '../features/timelines/timelineSlice'
+import timelines from '../features/timelines/timelinesSlice'
 import pages from '../features/pages/pagesSlice'
 import { logger } from 'redux-logger'
 // import thunk from 'redux-thunk'
